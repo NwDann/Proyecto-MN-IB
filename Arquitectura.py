@@ -65,7 +65,7 @@ root_window.title("Cálculo de Intersección de Escaleras")
 root_window.geometry("800x600")
 root_window.configure(bg="black")
 
-# Frame para los campos de entrada
+# Frame para los campos de entrada.
 frame = tk.Frame(root_window, bg="black")
 frame.pack(pady=50)
 
