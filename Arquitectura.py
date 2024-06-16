@@ -44,7 +44,7 @@ def calcular():
 def graficar_funcion(x1, x2, h, raiz):
     fig, ax = plt.subplots()
     
-    # Definir las coordenadas de las escaleras
+    # Coordenadas de las escaleras
     x_escalera1 = [0, raiz]
     y_escalera1 = [0, h]
     
@@ -52,16 +52,16 @@ def graficar_funcion(x1, x2, h, raiz):
     y_escalera2 = [0, h]
     
     # Graficar las escaleras
-    ax.plot(x_escalera1, y_escalera1, label='Escalera 1', color='blue')
-    ax.plot(x_escalera2, y_escalera2, label='Escalera 2', color='green')
+    ax.plot(x_escalera1, y_escalera1, label=f'Escalera 1 ({x1} m)', color='blue')
+    ax.plot(x_escalera2, y_escalera2, label=f'Escalera 2 ({x2} m)', color='green')
     
     # Punto de intersección
     ax.scatter(raiz, h, color='red', zorder=5)
     ax.text(raiz, h, f'({raiz:.2f}, {h:.2f})', fontsize=10, verticalalignment='bottom')
     
-    # Anotaciones de las longitudes
-    ax.text(raiz/2, h/2, f'{x1} m', fontsize=10, color='blue', verticalalignment='bottom', horizontalalignment='center')
-    ax.text(raiz/2, h/2, f'{x2} m', fontsize=10, color='green', verticalalignment='top', horizontalalignment='center')
+    # Configurar límites del gráfico para que se ajusten a las dimensiones de las escaleras
+    ax.set_xlim(0, max(raiz, x1, x2))
+    ax.set_ylim(0, h + 1)
     
     ax.set_xlabel('Ancho del pasillo (m)')
     ax.set_ylabel('Altura (m)')
