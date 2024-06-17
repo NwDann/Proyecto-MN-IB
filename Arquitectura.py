@@ -5,6 +5,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy.optimize import bisect
 
+#Variable global del gráfico de las escaleras
+canvas = None
+
 # Función que calcula la raíz
 def calcular_raiz(x1, x2, h):
     def ecuacion(w):
@@ -42,6 +45,12 @@ def calcular():
 
 # Función para graficar la función y las escaleras
 def graficar_funcion(x1, x2, h, raiz):
+    global canvas
+    
+    if canvas:
+        canvas.get_tk_widget().pack_forget()
+        canvas = None
+    
     fig, ax = plt.subplots()
     
     # Coordenadas de las escaleras
@@ -64,7 +73,7 @@ def graficar_funcion(x1, x2, h, raiz):
     ax.text(x_interseccion, y_interseccion, f'({raiz:.2f}, {h:.2f})', fontsize=10, verticalalignment='bottom')
     
     # Configurar límites del gráfico para que se ajusten a las dimensiones de las escaleras
-    ax.set_xlim(0, max(raiz, x1, x2))
+    ax.set_xlim(0, raiz)
     y_max = max(x1_altura,x2_altura)
     ax.set_ylim(0, y_max + 1)
     
