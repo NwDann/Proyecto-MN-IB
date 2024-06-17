@@ -123,5 +123,13 @@ boton_calcular = tk.Button(ventana_principal, text="Calcular", command=calcular,
 boton_calcular.config(width=20, height=2)  # Ajustar el tamaño del botón
 boton_calcular.pack(pady=20)
 
+# Si el usuario cierra la ventana, dejará de ejecutarse
+def cerrar():
+    ventana_principal.quit()
+    ventana_principal.destroy()
+
+# Comprueba si cerró la ventana
+ventana_principal.protocol("WM_DELETE_WINDOW", cerrar)
+
 # Ejecutar la aplicación
 ventana_principal.mainloop()
