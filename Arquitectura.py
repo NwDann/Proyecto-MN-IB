@@ -5,11 +5,21 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy.optimize import bisect
 
-#Variable global del gráfico de las escaleras
+# Variable global del gráfico de las escaleras
 canvas = None
 
-# Función que calcula la raíz
 def calcular_raiz(x1, x2, h):
+    """
+    Calcula la raíz de la ecuación que determina el ancho del pasillo.
+
+    Parámetros:
+    - x1: Longitud de la primera escalera (float)
+    - x2: Longitud de la segunda escalera (float)
+    - h: Altura desde el suelo a la intersección de las escaleras (float)
+
+    Retorna:
+    - Ancho del pasillo (float) si se encuentra una solución, de lo contrario None.
+    """
     def ecuacion(w):
         return (h * w) / (x2 ** 2 - w ** 2) ** 0.5 + (h * w) / (x1 ** 2 - w ** 2) ** 0.5 - w
     
@@ -23,8 +33,11 @@ def calcular_raiz(x1, x2, h):
         print("Error al calcular la raíz:", e)
         return None
 
-# Función para manejar el evento de clic en el botón
 def calcular():
+    """
+    Maneja el evento de clic en el botón de calcular, obteniendo los valores de entrada,
+    calculando el ancho del pasillo y graficando las escaleras.
+    """
     try:
         x1 = float(entrada_x1.get())
         x2 = float(entrada_x2.get())
@@ -43,8 +56,16 @@ def calcular():
     else:
         messagebox.showerror("Sin solución", "No hay solución para las longitudes dadas.")
 
-# Función para graficar la función y las escaleras
 def graficar_funcion(x1, x2, h, raiz):
+    """
+    Grafica la posición de las escaleras y su punto de intersección en el pasillo.
+
+    Parámetros:
+    - x1: Longitud de la primera escalera (float)
+    - x2: Longitud de la segunda escalera (float)
+    - h: Altura desde el suelo a la intersección de las escaleras (float)
+    - raiz: Ancho del pasillo (float)
+    """
     global canvas
     
     if canvas:
@@ -54,11 +75,11 @@ def graficar_funcion(x1, x2, h, raiz):
     fig, ax = plt.subplots()
     
     # Coordenadas de las escaleras
-    x1_altura = (x1**2-raiz**2)**0.5 
+    x1_altura = (x1**2 - raiz**2)**0.5 
     x_escalera1 = [0, raiz]
     y_escalera1 = [0, x1_altura]
     
-    x2_altura = (x2**2-raiz**2)**0.5 
+    x2_altura = (x2**2 - raiz**2)**0.5 
     x_escalera2 = [raiz, 0]
     y_escalera2 = [0, x2_altura]
     
@@ -67,14 +88,14 @@ def graficar_funcion(x1, x2, h, raiz):
     ax.plot(x_escalera2, y_escalera2, label=f'Escalera 2 ({x2} m)', color='green')
     
     # Punto de intersección
-    x_interseccion = h/np.tan(np.arctan(x1_altura/raiz))
+    x_interseccion = h / np.tan(np.arctan(x1_altura / raiz))
     y_interseccion = h
     ax.scatter(x_interseccion, y_interseccion, color='red', zorder=5)
     ax.text(x_interseccion, y_interseccion, f'({raiz:.2f}, {h:.2f})', fontsize=10, verticalalignment='bottom')
     
     # Configurar límites del gráfico para que se ajusten a las dimensiones de las escaleras
     ax.set_xlim(0, raiz)
-    y_max = max(x1_altura,x2_altura)
+    y_max = max(x1_altura, x2_altura)
     ax.set_ylim(0, y_max + 1)
     
     ax.set_xlabel('Ancho del pasillo (m)')
@@ -123,12 +144,14 @@ boton_calcular = tk.Button(ventana_principal, text="Calcular", command=calcular,
 boton_calcular.config(width=20, height=2)  # Ajustar el tamaño del botón
 boton_calcular.pack(pady=20)
 
-# Si el usuario cierra la ventana, dejará de ejecutarse
 def cerrar():
+    """
+    Finaliza la ejecución de la ventana principal cuando el usuario cierra la ventana.
+    """
     ventana_principal.quit()
     ventana_principal.destroy()
 
-# Comprueba si cerró la ventana
+# Configura la acción de cierre de la ventana principal
 ventana_principal.protocol("WM_DELETE_WINDOW", cerrar)
 
 # Ejecutar la aplicación
