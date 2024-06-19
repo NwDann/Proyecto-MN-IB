@@ -12,8 +12,8 @@ Sigue estos pasos para instalar y configurar el entorno del proyecto:
 
 1. **Clonar el repositorio:**
     ```bash
-    git clone <URL_del_repositorio>
-    cd <nombre_del_repositorio>
+    git clone https://github.com/NwDann/Proyecto-MN-IB.git
+    cd Proyecto-MN-IB
     ```
 
 2. **Crear un entorno virtual:**
